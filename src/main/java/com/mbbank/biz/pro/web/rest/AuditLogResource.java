@@ -87,7 +87,7 @@ public class AuditLogResource {
      */
     @PutMapping("/{id}")
     public ResponseEntity<AuditLogDTO> updateAuditLog(
-        @PathVariable(value = "id", required = false) final Long id,
+        @PathVariable(value = "id", required = false) final String id,
         @Valid @RequestBody AuditLogDTO auditLogDTO
     ) throws URISyntaxException {
         LOG.debug("REST request to update AuditLog : {}, {}", id, auditLogDTO);
@@ -121,7 +121,7 @@ public class AuditLogResource {
      */
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<AuditLogDTO> partialUpdateAuditLog(
-        @PathVariable(value = "id", required = false) final Long id,
+        @PathVariable(value = "id", required = false) final String id,
         @NotNull @RequestBody AuditLogDTO auditLogDTO
     ) throws URISyntaxException {
         LOG.debug("REST request to partial update AuditLog partially : {}, {}", id, auditLogDTO);
@@ -182,7 +182,7 @@ public class AuditLogResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the auditLogDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<AuditLogDTO> getAuditLog(@PathVariable("id") Long id) {
+    public ResponseEntity<AuditLogDTO> getAuditLog(@PathVariable("id") String id) {
         LOG.debug("REST request to get AuditLog : {}", id);
         Optional<AuditLogDTO> auditLogDTO = auditLogService.findOne(id);
         return ResponseUtil.wrapOrNotFound(auditLogDTO);
@@ -195,7 +195,7 @@ public class AuditLogResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAuditLog(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteAuditLog(@PathVariable("id") String id) {
         LOG.debug("REST request to delete AuditLog : {}", id);
         auditLogService.delete(id);
         return ResponseEntity.noContent()

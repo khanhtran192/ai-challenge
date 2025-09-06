@@ -81,7 +81,7 @@ public class AppUserService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<AppUserDTO> findOne(Long id) {
+    public Optional<AppUserDTO> findOne(String id) {
         LOG.debug("Request to get AppUser : {}", id);
         return appUserRepository.findById(id).map(appUserMapper::toDto);
     }
@@ -91,7 +91,7 @@ public class AppUserService {
      *
      * @param id the id of the entity.
      */
-    public void delete(Long id) {
+    public void delete(String id) {
         LOG.debug("Request to delete AppUser : {}", id);
         appUserRepository.deleteById(id);
     }

@@ -73,7 +73,7 @@ public class SensitiveInfoResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the sensitiveInfoDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<SensitiveInfoDTO> getSensitiveInfo(@PathVariable("id") Long id) {
+    public ResponseEntity<SensitiveInfoDTO> getSensitiveInfo(@PathVariable("id") String id) {
         LOG.debug("REST request to get SensitiveInfo : {}", id);
         Optional<SensitiveInfoDTO> sensitiveInfoDTO = sensitiveInfoService.findOne(id);
         return ResponseUtil.wrapOrNotFound(sensitiveInfoDTO);

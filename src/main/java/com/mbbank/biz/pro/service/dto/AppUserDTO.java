@@ -12,7 +12,7 @@ import java.util.Objects;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class AppUserDTO implements Serializable {
 
-    private Long id;
+    private String id;
 
     @NotNull
     @Size(max = 100)
@@ -33,11 +33,11 @@ public class AppUserDTO implements Serializable {
 
     private Instant updatedAt;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

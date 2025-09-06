@@ -12,7 +12,7 @@ import java.util.Objects;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class DocumentShareDTO implements Serializable {
 
-    private Long id;
+    private String id;
 
     @NotNull
     private SharePermission permission;
@@ -25,11 +25,11 @@ public class DocumentShareDTO implements Serializable {
     @NotNull
     private AppUserDTO user;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

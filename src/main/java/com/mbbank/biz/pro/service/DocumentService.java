@@ -106,7 +106,7 @@ public class DocumentService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<DocumentDTO> findOne(Long id) {
+    public Optional<DocumentDTO> findOne(String id) {
         LOG.debug("Request to get Document : {}", id);
         return documentRepository.findById(id).map(documentMapper::toDto);
     }
@@ -116,7 +116,7 @@ public class DocumentService {
      *
      * @param id the id of the entity.
      */
-    public void delete(Long id) {
+    public void delete(String id) {
         LOG.debug("Request to delete Document : {}", id);
         documentRepository.deleteById(id);
     }
@@ -154,8 +154,23 @@ public class DocumentService {
             document.setUploadedAt(Instant.now());
             document.setOwner(currentUser);
 
+            LOG.debug(
+                "About to save document: fileName={}, fileType={}, fileSize={}, status={}, ownerId={}",
+                document.getFileName(),
+                document.getFileType(),
+                document.getFileSize(),
+                document.getStatus(),
+                document.getOwner().getId()
+            );
+
             // Save document
-            document = documentRepository.save(document);
+            try {
+                document = documentRepository.save(document);
+                LOG.debug("Document saved successfully with ID: {}", document.getId());
+            } catch (Exception e) {
+                LOG.error("Exception in uploadDocument() with cause = '{}' and exception = '{}'", e.getCause(), e.getMessage());
+                throw e;
+            }
 
             // Log audit
             auditLogService.logAction(currentUser, "DOCUMENT_UPLOADED", "Uploaded file: " + file.getOriginalFilename(), document);

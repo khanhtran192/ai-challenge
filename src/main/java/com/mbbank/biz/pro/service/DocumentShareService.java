@@ -81,7 +81,7 @@ public class DocumentShareService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<DocumentShareDTO> findOne(Long id) {
+    public Optional<DocumentShareDTO> findOne(String id) {
         LOG.debug("Request to get DocumentShare : {}", id);
         return documentShareRepository.findById(id).map(documentShareMapper::toDto);
     }
@@ -91,7 +91,7 @@ public class DocumentShareService {
      *
      * @param id the id of the entity.
      */
-    public void delete(Long id) {
+    public void delete(String id) {
         LOG.debug("Request to delete DocumentShare : {}", id);
         documentShareRepository.deleteById(id);
     }

@@ -41,16 +41,20 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
+    private final UserSyncService userSyncService;
+
     public UserService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
-        CacheManager cacheManager
+        CacheManager cacheManager,
+        UserSyncService userSyncService
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.userSyncService = userSyncService;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -63,6 +67,15 @@ public class UserService {
                 user.setActivationKey(null);
                 this.clearUserCaches(user);
                 LOG.debug("Activated user: {}", user);
+
+                // Sync to AppUser table after activation
+                try {
+                    userSyncService.syncUserToAppUser(user);
+                    LOG.debug("Successfully synced activated user to AppUser table: {}", user.getLogin());
+                } catch (Exception e) {
+                    LOG.error("Failed to sync activated user to AppUser table: {}", user.getLogin(), e);
+                }
+
                 return user;
             });
     }
@@ -132,6 +145,16 @@ public class UserService {
         userRepository.save(newUser);
         this.clearUserCaches(newUser);
         LOG.debug("Created Information for User: {}", newUser);
+
+        // Sync to AppUser table
+        try {
+            userSyncService.syncUserToAppUser(newUser);
+            LOG.debug("Successfully synced new user to AppUser table: {}", newUser.getLogin());
+        } catch (Exception e) {
+            LOG.error("Failed to sync user to AppUser table: {}", newUser.getLogin(), e);
+            // Don't throw exception - user registration should still succeed
+        }
+
         return newUser;
     }
 
@@ -177,6 +200,16 @@ public class UserService {
         userRepository.save(user);
         this.clearUserCaches(user);
         LOG.debug("Created Information for User: {}", user);
+
+        // Sync to AppUser table
+        try {
+            userSyncService.syncUserToAppUser(user);
+            LOG.debug("Successfully synced created user to AppUser table: {}", user.getLogin());
+        } catch (Exception e) {
+            LOG.error("Failed to sync user to AppUser table: {}", user.getLogin(), e);
+            // Don't throw exception - user creation should still succeed
+        }
+
         return user;
     }
 
@@ -213,6 +246,15 @@ public class UserService {
                 userRepository.save(user);
                 this.clearUserCaches(user);
                 LOG.debug("Changed Information for User: {}", user);
+
+                // Sync to AppUser table
+                try {
+                    userSyncService.syncIfNeeded(user);
+                    LOG.debug("Successfully synced updated user to AppUser table: {}", user.getLogin());
+                } catch (Exception e) {
+                    LOG.error("Failed to sync updated user to AppUser table: {}", user.getLogin(), e);
+                }
+
                 return user;
             })
             .map(AdminUserDTO::new);
@@ -222,9 +264,18 @@ public class UserService {
         userRepository
             .findOneByLogin(login)
             .ifPresent(user -> {
+                String userEmail = user.getEmail();
                 userRepository.delete(user);
                 this.clearUserCaches(user);
                 LOG.debug("Deleted User: {}", user);
+
+                // Delete corresponding AppUser
+                try {
+                    userSyncService.deleteAppUserByEmail(userEmail);
+                    LOG.debug("Successfully deleted corresponding AppUser for email: {}", userEmail);
+                } catch (Exception e) {
+                    LOG.error("Failed to delete corresponding AppUser for email: {}", userEmail, e);
+                }
             });
     }
 
@@ -251,6 +302,14 @@ public class UserService {
                 userRepository.save(user);
                 this.clearUserCaches(user);
                 LOG.debug("Changed Information for User: {}", user);
+
+                // Sync to AppUser table
+                try {
+                    userSyncService.syncIfNeeded(user);
+                    LOG.debug("Successfully synced updated user to AppUser table: {}", user.getLogin());
+                } catch (Exception e) {
+                    LOG.error("Failed to sync updated user to AppUser table: {}", user.getLogin(), e);
+                }
             });
     }
 

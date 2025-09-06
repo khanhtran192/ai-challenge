@@ -9,4 +9,4 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface SensitiveInfoRepository extends JpaRepository<SensitiveInfo, Long>, JpaSpecificationExecutor<SensitiveInfo> {}
+public interface SensitiveInfoRepository extends JpaRepository<SensitiveInfo, String>, JpaSpecificationExecutor<SensitiveInfo> {}

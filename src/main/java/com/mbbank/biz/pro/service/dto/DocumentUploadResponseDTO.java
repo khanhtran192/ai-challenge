@@ -12,7 +12,7 @@ public class DocumentUploadResponseDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private String id;
     private String fileName;
     private FileType fileType;
     private Long fileSize;
@@ -25,7 +25,7 @@ public class DocumentUploadResponseDTO implements Serializable {
     }
 
     public DocumentUploadResponseDTO(
-        Long id,
+        String id,
         String fileName,
         FileType fileType,
         Long fileSize,
@@ -42,11 +42,11 @@ public class DocumentUploadResponseDTO implements Serializable {
         this.owner = owner;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

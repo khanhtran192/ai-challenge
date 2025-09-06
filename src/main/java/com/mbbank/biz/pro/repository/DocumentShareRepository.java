@@ -9,4 +9,4 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface DocumentShareRepository extends JpaRepository<DocumentShare, Long>, JpaSpecificationExecutor<DocumentShare> {}
+public interface DocumentShareRepository extends JpaRepository<DocumentShare, String>, JpaSpecificationExecutor<DocumentShare> {}

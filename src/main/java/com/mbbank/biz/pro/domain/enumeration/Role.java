@@ -9,4 +9,5 @@ package com.mbbank.biz.pro.domain.enumeration;
 public enum Role {
     user,
     admin,
+    manager,
 }

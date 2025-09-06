@@ -83,7 +83,7 @@ public class AppUserResource {
      */
     @PutMapping("/{id}")
     public ResponseEntity<AppUserDTO> updateAppUser(
-        @PathVariable(value = "id", required = false) final Long id,
+        @PathVariable(value = "id", required = false) final String id,
         @Valid @RequestBody AppUserDTO appUserDTO
     ) throws URISyntaxException {
         LOG.debug("REST request to update AppUser : {}, {}", id, appUserDTO);
@@ -117,7 +117,7 @@ public class AppUserResource {
      */
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<AppUserDTO> partialUpdateAppUser(
-        @PathVariable(value = "id", required = false) final Long id,
+        @PathVariable(value = "id", required = false) final String id,
         @NotNull @RequestBody AppUserDTO appUserDTO
     ) throws URISyntaxException {
         LOG.debug("REST request to partial update AppUser partially : {}, {}", id, appUserDTO);
@@ -178,7 +178,7 @@ public class AppUserResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the appUserDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<AppUserDTO> getAppUser(@PathVariable("id") Long id) {
+    public ResponseEntity<AppUserDTO> getAppUser(@PathVariable("id") String id) {
         LOG.debug("REST request to get AppUser : {}", id);
         Optional<AppUserDTO> appUserDTO = appUserService.findOne(id);
         return ResponseUtil.wrapOrNotFound(appUserDTO);
@@ -191,7 +191,7 @@ public class AppUserResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAppUser(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteAppUser(@PathVariable("id") String id) {
         LOG.debug("REST request to delete AppUser : {}", id);
         appUserService.delete(id);
         return ResponseEntity.noContent()

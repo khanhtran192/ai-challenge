@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface DocumentRepository extends JpaRepository<Document, Long>, JpaSpecificationExecutor<Document> {
+public interface DocumentRepository extends JpaRepository<Document, String>, JpaSpecificationExecutor<Document> {
     /**
      * Find documents by owner ordered by upload date descending.
      *

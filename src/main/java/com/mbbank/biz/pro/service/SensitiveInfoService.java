@@ -81,7 +81,7 @@ public class SensitiveInfoService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<SensitiveInfoDTO> findOne(Long id) {
+    public Optional<SensitiveInfoDTO> findOne(String id) {
         LOG.debug("Request to get SensitiveInfo : {}", id);
         return sensitiveInfoRepository.findById(id).map(sensitiveInfoMapper::toDto);
     }
@@ -91,7 +91,7 @@ public class SensitiveInfoService {
      *
      * @param id the id of the entity.
      */
-    public void delete(Long id) {
+    public void delete(String id) {
         LOG.debug("Request to delete SensitiveInfo : {}", id);
         sensitiveInfoRepository.deleteById(id);
     }

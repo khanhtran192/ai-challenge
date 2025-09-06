@@ -12,7 +12,7 @@ import java.util.Objects;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class SensitiveInfoDTO implements Serializable {
 
-    private Long id;
+    private String id;
 
     @NotNull
     @Size(max = 50)
@@ -31,11 +31,11 @@ public class SensitiveInfoDTO implements Serializable {
     @NotNull
     private DocumentDTO document;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

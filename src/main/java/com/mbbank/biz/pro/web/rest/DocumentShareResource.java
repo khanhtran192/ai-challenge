@@ -88,7 +88,7 @@ public class DocumentShareResource {
      */
     @PutMapping("/{id}")
     public ResponseEntity<DocumentShareDTO> updateDocumentShare(
-        @PathVariable(value = "id", required = false) final Long id,
+        @PathVariable(value = "id", required = false) final String id,
         @Valid @RequestBody DocumentShareDTO documentShareDTO
     ) throws URISyntaxException {
         LOG.debug("REST request to update DocumentShare : {}, {}", id, documentShareDTO);
@@ -122,7 +122,7 @@ public class DocumentShareResource {
      */
     @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<DocumentShareDTO> partialUpdateDocumentShare(
-        @PathVariable(value = "id", required = false) final Long id,
+        @PathVariable(value = "id", required = false) final String id,
         @NotNull @RequestBody DocumentShareDTO documentShareDTO
     ) throws URISyntaxException {
         LOG.debug("REST request to partial update DocumentShare partially : {}, {}", id, documentShareDTO);
@@ -183,7 +183,7 @@ public class DocumentShareResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the documentShareDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<DocumentShareDTO> getDocumentShare(@PathVariable("id") Long id) {
+    public ResponseEntity<DocumentShareDTO> getDocumentShare(@PathVariable("id") String id) {
         LOG.debug("REST request to get DocumentShare : {}", id);
         Optional<DocumentShareDTO> documentShareDTO = documentShareService.findOne(id);
         return ResponseUtil.wrapOrNotFound(documentShareDTO);
@@ -196,7 +196,7 @@ public class DocumentShareResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDocumentShare(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteDocumentShare(@PathVariable("id") String id) {
         LOG.debug("REST request to delete DocumentShare : {}", id);
         documentShareService.delete(id);
         return ResponseEntity.noContent()

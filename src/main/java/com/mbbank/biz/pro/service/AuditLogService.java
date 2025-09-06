@@ -84,7 +84,7 @@ public class AuditLogService {
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<AuditLogDTO> findOne(Long id) {
+    public Optional<AuditLogDTO> findOne(String id) {
         LOG.debug("Request to get AuditLog : {}", id);
         return auditLogRepository.findById(id).map(auditLogMapper::toDto);
     }
@@ -94,7 +94,7 @@ public class AuditLogService {
      *
      * @param id the id of the entity.
      */
-    public void delete(Long id) {
+    public void delete(String id) {
         LOG.debug("Request to delete AuditLog : {}", id);
         auditLogRepository.deleteById(id);
     }
