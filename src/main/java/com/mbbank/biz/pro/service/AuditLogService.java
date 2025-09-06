@@ -1,9 +1,12 @@
 package com.mbbank.biz.pro.service;
 
+import com.mbbank.biz.pro.domain.AppUser;
 import com.mbbank.biz.pro.domain.AuditLog;
+import com.mbbank.biz.pro.domain.Document;
 import com.mbbank.biz.pro.repository.AuditLogRepository;
 import com.mbbank.biz.pro.service.dto.AuditLogDTO;
 import com.mbbank.biz.pro.service.mapper.AuditLogMapper;
+import java.time.Instant;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,5 +97,36 @@ public class AuditLogService {
     public void delete(Long id) {
         LOG.debug("Request to delete AuditLog : {}", id);
         auditLogRepository.deleteById(id);
+    }
+
+    /**
+     * Log user action.
+     *
+     * @param user the user performing the action
+     * @param action the action performed
+     * @param detail additional details
+     */
+    public void logAction(AppUser user, String action, String detail) {
+        logAction(user, action, detail, null);
+    }
+
+    /**
+     * Log user action with document.
+     *
+     * @param user the user performing the action
+     * @param action the action performed
+     * @param detail additional details
+     * @param document the document involved (optional)
+     */
+    public void logAction(AppUser user, String action, String detail, Document document) {
+        AuditLog auditLog = new AuditLog();
+        auditLog.setUser(user);
+        auditLog.setAction(action);
+        auditLog.setDetail(detail);
+        auditLog.setDocument(document);
+        auditLog.setCreatedAt(Instant.now());
+
+        auditLogRepository.save(auditLog);
+        LOG.debug("Audit log created: user={}, action={}, document={}", user.getId(), action, document != null ? document.getId() : null);
     }
 }

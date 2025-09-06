@@ -1,6 +1,7 @@
 package com.mbbank.biz.pro.repository;
 
 import com.mbbank.biz.pro.domain.AppUser;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +10,12 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface AppUserRepository extends JpaRepository<AppUser, Long>, JpaSpecificationExecutor<AppUser> {}
+public interface AppUserRepository extends JpaRepository<AppUser, Long>, JpaSpecificationExecutor<AppUser> {
+    /**
+     * Find AppUser by email.
+     *
+     * @param email the email to search for
+     * @return optional AppUser
+     */
+    Optional<AppUser> findOneByEmail(String email);
+}

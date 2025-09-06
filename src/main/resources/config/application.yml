@@ -166,6 +166,11 @@ spring:
   output:
     ansi:
       console-available: true
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+      enabled: true
 
 server:
   servlet:
@@ -226,4 +231,6 @@ jhipster:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
-# application:
+application:
+  file-storage:
+    upload-dir: ${java.io.tmpdir}/ai-challenge/uploads

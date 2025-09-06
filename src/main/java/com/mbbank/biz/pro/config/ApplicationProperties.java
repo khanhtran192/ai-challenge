@@ -12,11 +12,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class ApplicationProperties {
 
     private final Liquibase liquibase = new Liquibase();
+    private final FileStorage fileStorage = new FileStorage();
 
     // jhipster-needle-application-properties-property
 
     public Liquibase getLiquibase() {
         return liquibase;
+    }
+
+    public FileStorage getFileStorage() {
+        return fileStorage;
     }
 
     // jhipster-needle-application-properties-property-getter
@@ -31,6 +36,19 @@ public class ApplicationProperties {
 
         public void setAsyncStart(Boolean asyncStart) {
             this.asyncStart = asyncStart;
+        }
+    }
+
+    public static class FileStorage {
+
+        private String uploadDir = "uploads";
+
+        public String getUploadDir() {
+            return uploadDir;
+        }
+
+        public void setUploadDir(String uploadDir) {
+            this.uploadDir = uploadDir;
         }
     }
     // jhipster-needle-application-properties-property-class
