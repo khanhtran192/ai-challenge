@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (auditLog(); as auditLogRef) {
+      <div>
+        <h2 data-cy="auditLogDetailsHeading">
+          <span jhiTranslate="aiChallengeApp.auditLog.detail.title">Translation missing for aiChallengeApp.auditLog.detail.title</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ auditLogRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.auditLog.action">Action</span></dt>
+          <dd>
+            <span>{{ auditLogRef.action }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.auditLog.detail">Detail</span></dt>
+          <dd>
+            <span>{{ auditLogRef.detail }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.auditLog.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ auditLogRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.auditLog.user">User</span></dt>
+          <dd>
+            @if (auditLog()!.user) {
+              <div>
+                <a [routerLink]="['/app-user', auditLog()!.user?.id, 'view']">{{ auditLogRef.user?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.auditLog.document">Document</span></dt>
+          <dd>
+            @if (auditLog()!.document) {
+              <div>
+                <a [routerLink]="['/document', auditLog()!.document?.id, 'view']">{{ auditLogRef.document?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Quay lại</span>
+        </button>
+
+        <button type="button" [routerLink]="['/audit-log', auditLogRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Sửa</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

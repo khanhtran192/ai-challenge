@@ -1,0 +1,71 @@
+
+
+/**
+ * NOTE:
+ * - Tránh đụng "User" mặc định của JHipster -> dùng AppUser map tới bảng USERS.
+ * - Đặt tên bảng bằng cú pháp entity <Name> (<TABLE_NAME>) { ... } theo JDL.
+ * - Quan hệ 2 chiều (owner/documents) để tránh lỗi “related field required”.
+ */
+
+enum Role { USER, ADMIN }
+enum FileType { PDF, DOCX }
+enum DocumentStatus { UPLOADED, SCANNING, READY, SENSITIVE, ERROR }
+enum SharePermission { VIEW }
+
+entity AppUser (USERS) {
+  fullName       String       required maxlength(100)
+  email          String       required unique minlength(5) maxlength(100)
+  passwordHash   String       required minlength(60) maxlength(255)
+  role           Role         required
+  createdAt      Instant
+  updatedAt      Instant
+}
+
+entity Document (DOCUMENTS) {
+  fileName     String         required maxlength(255)
+  fileType     FileType       required
+  fileSize     Long           required
+  status       DocumentStatus required
+  storagePath  TextBlob       required
+  uploadedAt   Instant
+}
+
+entity SensitiveInfo (SENSITIVE_INFO) {
+  infoType     String    required maxlength(50)
+  content      TextBlob  required
+  pageNumber   Integer
+  position     String    maxlength(255)
+  detectedAt   Instant
+}
+
+entity DocumentShare (DOCUMENT_SHARES) {
+  permission   SharePermission required
+  grantedAt    Instant
+}
+
+entity AuditLog (AUDIT_LOGS) {
+  action     String   required maxlength(255)
+  detail     TextBlob
+  createdAt  Instant
+}
+
+/**
+ * Relationships (hai chiều để tránh lỗi “related field required”)
+ */
+relationship OneToMany {
+  AppUser{documents} to Document{owner required},
+  Document{sensitives} to SensitiveInfo{document required},
+  Document{shares} to DocumentShare{document required},
+  AppUser{shares} to DocumentShare{user required},
+  AppUser{auditLogs} to AuditLog{user required},
+  Document{auditLogs} to AuditLog{document}
+}
+
+/**
+ * Options
+ */
+paginate * with pagination
+service * with serviceClass
+dto * with mapstruct
+filter *
+readOnly SensitiveInfo

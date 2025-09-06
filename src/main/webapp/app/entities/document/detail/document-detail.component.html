@@ -1,0 +1,68 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (document(); as documentRef) {
+      <div>
+        <h2 data-cy="documentDetailsHeading"><span jhiTranslate="aiChallengeApp.document.detail.title">Document</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ documentRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.document.fileName">File Name</span></dt>
+          <dd>
+            <span>{{ documentRef.fileName }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.document.fileType">File Type</span></dt>
+          <dd>
+            <span [jhiTranslate]="'aiChallengeApp.FileType.' + (documentRef.fileType ?? 'null')">{{
+              { null: '', PDF: 'PDF', DOCX: 'DOCX' }[documentRef.fileType ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.document.fileSize">File Size</span></dt>
+          <dd>
+            <span>{{ documentRef.fileSize }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.document.status">Status</span></dt>
+          <dd>
+            <span [jhiTranslate]="'aiChallengeApp.DocumentStatus.' + (documentRef.status ?? 'null')">{{
+              { null: '', UPLOADED: 'UPLOADED', SCANNING: 'SCANNING', READY: 'READY', SENSITIVE: 'SENSITIVE', ERROR: 'ERROR' }[
+                documentRef.status ?? 'null'
+              ]
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.document.storagePath">Storage Path</span></dt>
+          <dd>
+            <span>{{ documentRef.storagePath }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.document.uploadedAt">Uploaded At</span></dt>
+          <dd>
+            <span>{{ documentRef.uploadedAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.document.owner">Owner</span></dt>
+          <dd>
+            @if (document()!.owner) {
+              <div>
+                <a [routerLink]="['/app-user', document()!.owner?.id, 'view']">{{ documentRef.owner?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Quay lại</span>
+        </button>
+
+        <button type="button" [routerLink]="['/document', documentRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Sửa</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

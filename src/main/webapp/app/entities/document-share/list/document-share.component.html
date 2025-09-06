@@ -1,0 +1,141 @@
+<div>
+  <h2 id="page-heading" data-cy="DocumentShareHeading">
+    <span jhiTranslate="aiChallengeApp.documentShare.home.title">Document Shares</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="aiChallengeApp.documentShare.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-document-share"
+        [routerLink]="['/document-share/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="aiChallengeApp.documentShare.home.createLabel">Thêm mới một Document Share</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  <jhi-filter [filters]="filters" />
+
+  @if (documentShares().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="aiChallengeApp.documentShare.home.notFound">No Document Shares found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="permission">
+              <div class="d-flex">
+                <span jhiTranslate="aiChallengeApp.documentShare.permission">Permission</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="grantedAt">
+              <div class="d-flex">
+                <span jhiTranslate="aiChallengeApp.documentShare.grantedAt">Granted At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="document.id">
+              <div class="d-flex">
+                <span jhiTranslate="aiChallengeApp.documentShare.document">Document</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="user.id">
+              <div class="d-flex">
+                <span jhiTranslate="aiChallengeApp.documentShare.user">User</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (documentShare of documentShares(); track trackId(documentShare)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/document-share', documentShare.id, 'view']">{{ documentShare.id }}</a>
+              </td>
+              <td [jhiTranslate]="'aiChallengeApp.SharePermission.' + (documentShare.permission ?? 'null')">
+                {{ { null: '', VIEW: 'VIEW' }[documentShare.permission ?? 'null'] }}
+              </td>
+              <td>{{ documentShare.grantedAt | formatMediumDatetime }}</td>
+              <td>
+                @if (documentShare.document) {
+                  <div>
+                    <a [routerLink]="['/document', documentShare.document.id, 'view']">{{ documentShare.document.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (documentShare.user) {
+                  <div>
+                    <a [routerLink]="['/app-user', documentShare.user.id, 'view']">{{ documentShare.user.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/document-share', documentShare.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Xem</span>
+                  </a>
+
+                  <a [routerLink]="['/document-share', documentShare.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Sửa</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(documentShare)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Xóa</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (documentShares().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page, totalItems, itemsPerPage }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

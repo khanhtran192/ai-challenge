@@ -74,6 +74,17 @@ public class CacheConfiguration {
             createCache(cm, com.mbbank.biz.pro.repository.UserRepository.USERS_BY_LOGIN_CACHE, jcacheConfiguration);
             createCache(cm, com.mbbank.biz.pro.repository.UserRepository.USERS_BY_EMAIL_CACHE, jcacheConfiguration);
             createCache(cm, com.mbbank.biz.pro.domain.Authority.class.getName(), jcacheConfiguration);
+            createCache(cm, com.mbbank.biz.pro.domain.AppUser.class.getName(), jcacheConfiguration);
+            createCache(cm, com.mbbank.biz.pro.domain.AppUser.class.getName() + ".documents", jcacheConfiguration);
+            createCache(cm, com.mbbank.biz.pro.domain.AppUser.class.getName() + ".shares", jcacheConfiguration);
+            createCache(cm, com.mbbank.biz.pro.domain.AppUser.class.getName() + ".auditLogs", jcacheConfiguration);
+            createCache(cm, com.mbbank.biz.pro.domain.Document.class.getName(), jcacheConfiguration);
+            createCache(cm, com.mbbank.biz.pro.domain.Document.class.getName() + ".sensitives", jcacheConfiguration);
+            createCache(cm, com.mbbank.biz.pro.domain.Document.class.getName() + ".shares", jcacheConfiguration);
+            createCache(cm, com.mbbank.biz.pro.domain.Document.class.getName() + ".auditLogs", jcacheConfiguration);
+            createCache(cm, com.mbbank.biz.pro.domain.SensitiveInfo.class.getName(), jcacheConfiguration);
+            createCache(cm, com.mbbank.biz.pro.domain.DocumentShare.class.getName(), jcacheConfiguration);
+            createCache(cm, com.mbbank.biz.pro.domain.AuditLog.class.getName(), jcacheConfiguration);
             // jhipster-needle-redis-add-entry
         };
     }

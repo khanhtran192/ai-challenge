@@ -1,0 +1,9 @@
+{
+  "aiChallengeApp": {
+    "Role": {
+      "null": "",
+      "USER": "USER",
+      "ADMIN": "ADMIN"
+    }
+  }
+}

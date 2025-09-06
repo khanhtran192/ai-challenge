@@ -1,0 +1,43 @@
+{
+  "annotations": {
+    "changelogDate": "20250906025238"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "entityTableName": "DOCUMENT_SHARES",
+  "fields": [
+    {
+      "fieldName": "permission",
+      "fieldType": "SharePermission",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "VIEW"
+    },
+    {
+      "fieldName": "grantedAt",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "DocumentShare",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "document",
+      "otherEntityRelationshipName": "shares",
+      "relationshipName": "document",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "appUser",
+      "otherEntityRelationshipName": "shares",
+      "relationshipName": "user",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (appUser(); as appUserRef) {
+      <div>
+        <h2 data-cy="appUserDetailsHeading"><span jhiTranslate="aiChallengeApp.appUser.detail.title">App User</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ appUserRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.appUser.fullName">Full Name</span></dt>
+          <dd>
+            <span>{{ appUserRef.fullName }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.appUser.email">Email</span></dt>
+          <dd>
+            <span>{{ appUserRef.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.appUser.passwordHash">Password Hash</span></dt>
+          <dd>
+            <span>{{ appUserRef.passwordHash }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.appUser.role">Role</span></dt>
+          <dd>
+            <span [jhiTranslate]="'aiChallengeApp.Role.' + (appUserRef.role ?? 'null')">{{
+              { null: '', USER: 'USER', ADMIN: 'ADMIN' }[appUserRef.role ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.appUser.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ appUserRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.appUser.updatedAt">Updated At</span></dt>
+          <dd>
+            <span>{{ appUserRef.updatedAt | formatMediumDatetime }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Quay lại</span>
+        </button>
+
+        <button type="button" [routerLink]="['/app-user', appUserRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Sửa</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

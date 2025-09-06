@@ -1,0 +1,73 @@
+{
+  "annotations": {
+    "changelogDate": "20250906025235"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "entityTableName": "USERS",
+  "fields": [
+    {
+      "fieldName": "fullName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "5"
+    },
+    {
+      "fieldName": "passwordHash",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "255",
+      "fieldValidateRulesMinlength": "60"
+    },
+    {
+      "fieldName": "role",
+      "fieldType": "Role",
+      "fieldTypeDocumentation": "NOTE:\\n- Tránh đụng \"User\" mặc định của JHipster -> dùng AppUser map tới bảng USERS.\\n- Đặt tên bảng bằng cú pháp entity <Name> (<TABLE_NAME>) { ... } theo JDL.\\n- Quan hệ 2 chiều (owner/documents) để tránh lỗi “related field required”.",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "USER,ADMIN"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "AppUser",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "document",
+      "otherEntityRelationshipName": "owner",
+      "relationshipName": "documents",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "documentShare",
+      "otherEntityRelationshipName": "user",
+      "relationshipName": "shares",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "auditLog",
+      "otherEntityRelationshipName": "user",
+      "relationshipName": "auditLogs",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

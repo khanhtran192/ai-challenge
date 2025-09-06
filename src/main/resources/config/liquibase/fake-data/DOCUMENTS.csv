@@ -1,0 +1,11 @@
+id;file_name;file_type;file_size;status;storage_path;uploaded_at;owner_id
+1;fundraising machine;DOCX;31630;UPLOADED;../fake-data/blob/hipster.txt;2025-09-05T14:23:24;1
+2;sandy out;DOCX;11458;SCANNING;../fake-data/blob/hipster.txt;2025-09-05T08:35:55;2
+3;ascribe um;DOCX;17268;READY;../fake-data/blob/hipster.txt;2025-09-05T23:16:27;3
+4;boohoo vivid boo;PDF;6979;READY;../fake-data/blob/hipster.txt;2025-09-05T20:54:33;4
+5;ick;PDF;27554;READY;../fake-data/blob/hipster.txt;2025-09-05T06:58:28;5
+6;degrease against sunder;PDF;14905;UPLOADED;../fake-data/blob/hipster.txt;2025-09-05T04:38:59;6
+7;crest hm;PDF;13310;READY;../fake-data/blob/hipster.txt;2025-09-05T19:16:17;7
+8;anenst;DOCX;13663;READY;../fake-data/blob/hipster.txt;2025-09-05T13:11:23;8
+9;drat;DOCX;32103;ERROR;../fake-data/blob/hipster.txt;2025-09-05T20:53:32;9
+10;difficult stool phew;DOCX;8079;SCANNING;../fake-data/blob/hipster.txt;2025-09-05T12:53:00;10

@@ -1,0 +1,57 @@
+erDiagram
+    USERS {
+        int user_id PK 
+        varchar full_name
+        varchar email 
+        varchar password_hash
+        varchar role 
+        datetime created_at
+        datetime updated_at
+    }
+
+    DOCUMENTS {
+        int document_id PK 
+        int owner_id FK 
+        varchar file_name
+        varchar file_type 
+        bigint file_size
+        varchar status 
+        text storage_path
+        datetime uploaded_at
+    }
+
+    SENSITIVE_INFO {
+        int info_id PK 
+        int document_id FK 
+        varchar info_type 
+        text content
+        int page_number
+        varchar position 
+        datetime detected_at
+    }
+
+    DOCUMENT_SHARES {
+        int share_id PK 
+        int document_id FK 
+        int user_id FK 
+        varchar permission 
+        datetime granted_at
+    }
+
+    AUDIT_LOGS {
+        int log_id PK 
+        int user_id FK 
+        int document_id FK 
+        varchar action 
+        text detail 
+        datetime created_at
+    }
+
+    %% Relationships
+    USERS ||--o{ DOCUMENTS : "owns"
+    USERS ||--o{ DOCUMENT_SHARES : "grants access"
+    DOCUMENTS ||--o{ SENSITIVE_INFO : "contains"
+    DOCUMENTS ||--o{ DOCUMENT_SHARES : "is shared"
+    USERS ||--o{ AUDIT_LOGS : "performs"
+    DOCUMENTS ||--o{ AUDIT_LOGS : "related to"
+

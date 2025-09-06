@@ -1,0 +1,242 @@
+📑 Use Case Specifications
+Use Case 1: Đăng nhập và Xác thực Người dùng
+
+Use Case ID: UC-01
+Use Case Name: Đăng nhập và Xác thực Người dùng
+Actors: Người dùng
+Description: Người dùng nhập email và mật khẩu để truy cập vào hệ thống quản lý văn bản.
+Preconditions:
+
+Người dùng đã có tài khoản trong hệ thống.
+
+Hệ thống đang khả dụng.
+
+Postconditions:
+
+Nếu thành công: Người dùng được điều hướng đến trang chính.
+
+Nếu thất bại: Người dùng vẫn ở trang đăng nhập và nhận thông báo lỗi.
+
+Normal Flow (Happy Path):
+
+Người dùng truy cập trang đăng nhập.
+
+Hệ thống hiển thị form Email & Mật khẩu.
+
+Người dùng nhập thông tin và nhấn Đăng nhập.
+
+Hệ thống xác thực.
+
+Nếu hợp lệ, hệ thống tạo session và điều hướng đến trang chính.
+
+Alternative Flows:
+
+A1: Sai thông tin → Hiển thị thông báo lỗi.
+
+A2: Truy cập trang bảo mật khi chưa đăng nhập → Chuyển hướng về login.
+
+A3: Người dùng chọn Đăng xuất → Hệ thống xóa session, quay về login.
+
+Activity Diagram:
+
+flowchart TD
+    A[Truy cập trang đăng nhập] --> B[Hiển thị form]
+    B --> C[Người dùng nhập Email & Mật khẩu]
+    C --> D[Hệ thống xác thực]
+    D -->|Hợp lệ| E[Tạo session & Điều hướng đến trang chính]
+    D -->|Sai| F[Hiển thị thông báo lỗi]
+    F --> B
+    G[Người dùng truy cập trang bảo mật khi chưa đăng nhập] --> H[Chuyển hướng về login]
+    I[Người dùng chọn Đăng xuất] --> J[Xóa session & về login]
+
+Use Case 2: Upload Tài liệu
+
+Use Case ID: UC-02
+Actors: Người dùng đã đăng nhập
+Description: Người dùng upload file PDF/DOCX vào hệ thống.
+Preconditions: Người dùng đã đăng nhập.
+Postconditions:
+
+Tài liệu được lưu trữ và đưa vào hàng đợi rà quét.
+
+Nếu lỗi: hệ thống hiển thị thông báo cụ thể.
+
+Normal Flow:
+
+Người dùng vào trang upload.
+
+Hệ thống hiển thị giao diện kéo-thả/chọn file.
+
+Người dùng chọn file PDF/DOCX.
+
+Hệ thống kiểm tra định dạng & kích thước.
+
+Nếu hợp lệ → Upload thành công → Đưa vào hàng đợi rà quét.
+
+Hệ thống hiển thị thông báo thành công.
+
+Alternative Flows:
+
+A1: File sai định dạng → Thông báo lỗi.
+
+A2: File quá dung lượng → Từ chối upload.
+
+A3: Upload thất bại → Hiển thị lỗi & cho phép thử lại.
+
+Activity Diagram:
+
+flowchart TD
+    A[Người dùng mở trang upload] --> B[Hiển thị giao diện chọn file]
+    B --> C[Người dùng chọn file]
+    C --> D[Hệ thống kiểm tra định dạng & dung lượng]
+
+    D -->|Hợp lệ| E[Upload file]
+    E --> F[Đưa vào hàng đợi rà quét]
+    F --> G[Hiển thị thông báo thành công]
+
+    D -->|Sai định dạng| H[Thông báo lỗi định dạng]
+    D -->|Quá dung lượng| I[Thông báo lỗi dung lượng]
+    E -->|Upload thất bại| J[Thông báo lỗi & Cho phép thử lại]
+
+Use Case 3: Rà quét tài liệu có dữ liệu nhạy cảm
+
+Use Case ID: UC-03
+Actors: Hệ thống, Quản trị viên
+Description: Hệ thống AI tự động phân tích tài liệu và gắn nhãn thông tin nhạy cảm.
+Preconditions: Tài liệu được upload thành công.
+Postconditions:
+
+Tài liệu được gắn trạng thái: Sẵn sàng xem hoặc Có dữ liệu nhạy cảm.
+
+Nếu lỗi: đánh dấu trạng thái lỗi.
+
+Normal Flow:
+
+Sau khi upload, hệ thống tự động bắt đầu rà quét.
+
+Hệ thống hiển thị trạng thái “Đang xử lý”.
+
+Khi hoàn tất, hệ thống gắn trạng thái “Sẵn sàng xem” hoặc “Có dữ liệu nhạy cảm”.
+
+Nếu có dữ liệu nhạy cảm → Lưu chi tiết phát hiện.
+
+Alternative Flows:
+
+A1: Quá trình rà quét thất bại → Gắn trạng thái lỗi & ghi log.
+
+A2: Tài liệu chưa quét xong → Người dùng không thể mở.
+
+Activity Diagram:
+
+flowchart TD
+    A[Tài liệu được upload] --> B[Bắt đầu rà quét]
+    B --> C[Trạng thái: Đang xử lý]
+    C --> D{Rà quét hoàn tất?}
+    D -->|Có nhạy cảm| E[Đánh dấu Có dữ liệu nhạy cảm & Lưu chi tiết]
+    D -->|Không có| F[Đánh dấu Sẵn sàng xem]
+    D -->|Thất bại| G[Gắn trạng thái lỗi & ghi log]
+
+Use Case 4: Xem Tài liệu
+
+Use Case ID: UC-04
+Actors: Người dùng có quyền
+Description: Người dùng mở và đọc tài liệu đã được quét.
+Preconditions: Người dùng có quyền xem và tài liệu đã quét xong.
+Postconditions: Người dùng xem được tài liệu hoặc nhận cảnh báo.
+
+Normal Flow:
+
+Người dùng truy cập danh sách tài liệu.
+
+Hệ thống hiển thị danh sách tài liệu có quyền xem.
+
+Người dùng chọn tài liệu.
+
+Nếu đã quét xong → Hệ thống hiển thị nội dung.
+
+Nếu có dữ liệu nhạy cảm → Hiển thị cảnh báo & highlight.
+
+Alternative Flows:
+
+A1: Tài liệu chưa quét xong → Hiển thị “Đang xử lý”.
+
+A2: Người dùng không có quyền → Hiển thị “Không có quyền truy cập”.
+
+A3 (Nâng cao): Xuất báo cáo tổng hợp thông tin nhạy cảm.
+
+Activity Diagram:
+
+flowchart TD
+    A[Người dùng mở danh sách tài liệu] --> B[Hệ thống hiển thị danh sách có quyền]
+    B --> C[Người dùng chọn tài liệu]
+    C --> D{Tài liệu đã quét xong?}
+    D -->|Chưa| E[Hiển thị 'Đang xử lý']
+    D -->|Rồi| F{Có dữ liệu nhạy cảm?}
+    F -->|Có| G[Hiển thị nội dung + cảnh báo & highlight]
+    F -->|Không| H[Hiển thị nội dung bình thường]
+    C -->|Không có quyền| I[Thông báo 'Không có quyền truy cập']
+
+Use Case 5: Chia sẻ Tài liệu (Nâng cao)
+
+Use Case ID: UC-05
+Actors: Người dùng sở hữu tài liệu
+Description: Người upload tài liệu có thể chia sẻ quyền xem cho người khác.
+Preconditions: Người dùng đã đăng nhập và sở hữu tài liệu.
+Postconditions: Người khác có thể truy cập theo quyền được cấp.
+
+Normal Flow:
+
+Khi upload xong, hệ thống gán quyền sở hữu cho uploader.
+
+Chủ sở hữu mở chức năng chia sẻ.
+
+Hệ thống cho phép thêm người dùng khác vào danh sách quyền xem.
+
+Người dùng được thêm có thể xem tài liệu theo quyền.
+
+Alternative Flows:
+
+A1: Người không có quyền cố gắng truy cập → Hệ thống từ chối & ghi log.
+
+A2: Thay đổi quyền truy cập → Ghi log hành động.
+
+Activity Diagram:
+
+flowchart TD
+    A[Người dùng upload tài liệu] --> B[Hệ thống gán quyền sở hữu]
+    B --> C[Chủ sở hữu mở chức năng chia sẻ]
+    C --> D[Thêm người dùng khác vào quyền truy cập]
+    D --> E[Hệ thống ghi log]
+    D --> F[Người được cấp quyền có thể xem tài liệu]
+    G[Người không có quyền cố gắng truy cập] --> H[Từ chối & ghi log]
+
+Use Case 6: Quản lý phân quyền tài liệu (Nâng cao)
+
+Use Case ID: UC-06
+Actors: Quản trị viên
+Description: Quản trị viên quản lý quyền truy cập của tài liệu trong hệ thống.
+Preconditions: Quản trị viên đã đăng nhập.
+Postconditions: Quyền truy cập tài liệu được cập nhật.
+
+Normal Flow:
+
+Quản trị viên mở danh sách tài liệu toàn hệ thống.
+
+Hệ thống hiển thị tất cả tài liệu và quyền hiện tại.
+
+Quản trị viên chỉnh sửa quyền của người dùng (ngoại trừ chủ sở hữu).
+
+Hệ thống cập nhật quyền và ghi log.
+
+Alternative Flows:
+
+A1: Quản trị viên cố chỉnh sửa quyền của chủ sở hữu → Hệ thống từ chối.
+
+Activity Diagram:
+
+flowchart TD
+    A[Quản trị viên mở danh sách tài liệu] --> B[Hệ thống hiển thị toàn bộ tài liệu]
+    B --> C[Quản trị viên chỉnh sửa quyền truy cập]
+    C --> D{Có phải chủ sở hữu?}
+    D -->|Có| E[Từ chối chỉnh sửa]
+    D -->|Không| F[Cập nhật quyền & ghi log]

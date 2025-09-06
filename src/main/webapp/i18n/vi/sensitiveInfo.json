@@ -1,0 +1,21 @@
+{
+  "aiChallengeApp": {
+    "sensitiveInfo": {
+      "home": {
+        "title": "Sensitive Infos",
+        "refreshListLabel": "Refresh list",
+        "notFound": "No Sensitive Infos found"
+      },
+      "detail": {
+        "title": "Sensitive Info"
+      },
+      "id": "ID",
+      "infoType": "Info Type",
+      "content": "Content",
+      "pageNumber": "Page Number",
+      "position": "Position",
+      "detectedAt": "Detected At",
+      "document": "Document"
+    }
+  }
+}

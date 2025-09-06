@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (documentShare(); as documentShareRef) {
+      <div>
+        <h2 data-cy="documentShareDetailsHeading"><span jhiTranslate="aiChallengeApp.documentShare.detail.title">Document Share</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ documentShareRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.documentShare.permission">Permission</span></dt>
+          <dd>
+            <span [jhiTranslate]="'aiChallengeApp.SharePermission.' + (documentShareRef.permission ?? 'null')">{{
+              { null: '', VIEW: 'VIEW' }[documentShareRef.permission ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.documentShare.grantedAt">Granted At</span></dt>
+          <dd>
+            <span>{{ documentShareRef.grantedAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.documentShare.document">Document</span></dt>
+          <dd>
+            @if (documentShare()!.document) {
+              <div>
+                <a [routerLink]="['/document', documentShare()!.document?.id, 'view']">{{ documentShareRef.document?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.documentShare.user">User</span></dt>
+          <dd>
+            @if (documentShare()!.user) {
+              <div>
+                <a [routerLink]="['/app-user', documentShare()!.user?.id, 'view']">{{ documentShareRef.user?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Quay lại</span>
+        </button>
+
+        <button type="button" [routerLink]="['/document-share', documentShareRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Sửa</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

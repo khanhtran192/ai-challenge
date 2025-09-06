@@ -1,0 +1,12 @@
+{
+  "aiChallengeApp": {
+    "DocumentStatus": {
+      "null": "",
+      "UPLOADED": "UPLOADED",
+      "SCANNING": "SCANNING",
+      "READY": "READY",
+      "SENSITIVE": "SENSITIVE",
+      "ERROR": "ERROR"
+    }
+  }
+}

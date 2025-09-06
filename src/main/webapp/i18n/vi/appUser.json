@@ -1,0 +1,32 @@
+{
+  "aiChallengeApp": {
+    "appUser": {
+      "home": {
+        "title": "App Users",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một App User",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật App User",
+        "notFound": "No App Users found"
+      },
+      "created": "Một App User mới được tạo với định danh {{ param }}",
+      "updated": "Một App User cập nhật với định danh {{ param }}",
+      "deleted": "Một App User đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa App User {{ id }}?"
+      },
+      "detail": {
+        "title": "App User"
+      },
+      "id": "ID",
+      "fullName": "Full Name",
+      "email": "Email",
+      "passwordHash": "Password Hash",
+      "role": "Role",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "documents": "Documents",
+      "shares": "Shares",
+      "auditLogs": "Audit Logs"
+    }
+  }
+}

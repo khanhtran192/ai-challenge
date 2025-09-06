@@ -1,0 +1,118 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-document-share-heading"
+        data-cy="DocumentShareCreateUpdateHeading"
+        jhiTranslate="aiChallengeApp.documentShare.home.createOrEditLabel"
+      >
+        Thêm mới hoặc cập nhật Document Share
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="aiChallengeApp.documentShare.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let permissionRef = editForm.get('permission')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_permission" jhiTranslate="aiChallengeApp.documentShare.permission">Permission</label>
+          <select class="form-control" name="permission" formControlName="permission" id="field_permission" data-cy="permission">
+            <option [ngValue]="null">{{ 'aiChallengeApp.SharePermission.null' | translate }}</option>
+            @for (sharePermission of sharePermissionValues; track $index) {
+              <option [value]="sharePermission">{{ 'aiChallengeApp.SharePermission.' + sharePermission | translate }}</option>
+            }
+          </select>
+          @if (permissionRef.invalid && (permissionRef.dirty || permissionRef.touched)) {
+            <div>
+              @if (editForm.get('permission')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Trường này bắt buộc phải nhập.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_grantedAt" jhiTranslate="aiChallengeApp.documentShare.grantedAt">Granted At</label>
+          <div class="d-flex">
+            <input
+              id="field_grantedAt"
+              data-cy="grantedAt"
+              type="datetime-local"
+              class="form-control"
+              name="grantedAt"
+              formControlName="grantedAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_document" jhiTranslate="aiChallengeApp.documentShare.document">Document</label>
+          <select
+            class="form-control"
+            id="field_document"
+            data-cy="document"
+            name="document"
+            formControlName="document"
+            [compareWith]="compareDocument"
+          >
+            @if (editForm.get(['document'])!.value === null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (documentOption of documentsSharedCollection; track $index) {
+              <option [ngValue]="documentOption">{{ documentOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['document'])!.invalid && (editForm.get(['document'])!.dirty || editForm.get(['document'])!.touched)) {
+          <div>
+            @if (editForm.get(['document'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Trường này bắt buộc phải nhập.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_user" jhiTranslate="aiChallengeApp.documentShare.user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareAppUser">
+            @if (editForm.get(['user'])!.value === null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (appUserOption of appUsersSharedCollection; track $index) {
+              <option [ngValue]="appUserOption">{{ appUserOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['user'])!.invalid && (editForm.get(['user'])!.dirty || editForm.get(['user'])!.touched)) {
+          <div>
+            @if (editForm.get(['user'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Trường này bắt buộc phải nhập.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Hủy</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Lưu</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

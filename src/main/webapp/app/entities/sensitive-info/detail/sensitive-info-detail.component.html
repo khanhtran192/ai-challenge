@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (sensitiveInfo(); as sensitiveInfoRef) {
+      <div>
+        <h2 data-cy="sensitiveInfoDetailsHeading"><span jhiTranslate="aiChallengeApp.sensitiveInfo.detail.title">Sensitive Info</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ sensitiveInfoRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.sensitiveInfo.infoType">Info Type</span></dt>
+          <dd>
+            <span>{{ sensitiveInfoRef.infoType }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.sensitiveInfo.content">Content</span></dt>
+          <dd>
+            <span>{{ sensitiveInfoRef.content }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.sensitiveInfo.pageNumber">Page Number</span></dt>
+          <dd>
+            <span>{{ sensitiveInfoRef.pageNumber }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.sensitiveInfo.position">Position</span></dt>
+          <dd>
+            <span>{{ sensitiveInfoRef.position }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.sensitiveInfo.detectedAt">Detected At</span></dt>
+          <dd>
+            <span>{{ sensitiveInfoRef.detectedAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="aiChallengeApp.sensitiveInfo.document">Document</span></dt>
+          <dd>
+            @if (sensitiveInfo()!.document) {
+              <div>
+                <a [routerLink]="['/document', sensitiveInfo()!.document?.id, 'view']">{{ sensitiveInfoRef.document?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Quay lại</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

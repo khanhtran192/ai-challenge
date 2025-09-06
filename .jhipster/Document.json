@@ -1,0 +1,78 @@
+{
+  "annotations": {
+    "changelogDate": "20250906025236"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "entityTableName": "DOCUMENTS",
+  "fields": [
+    {
+      "fieldName": "fileName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "fileType",
+      "fieldType": "FileType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PDF,DOCX"
+    },
+    {
+      "fieldName": "fileSize",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "DocumentStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "UPLOADED,SCANNING,READY,SENSITIVE,ERROR"
+    },
+    {
+      "fieldName": "storagePath",
+      "fieldType": "TextBlob",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "uploadedAt",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Document",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "sensitiveInfo",
+      "otherEntityRelationshipName": "document",
+      "relationshipName": "sensitives",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "documentShare",
+      "otherEntityRelationshipName": "document",
+      "relationshipName": "shares",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "auditLog",
+      "otherEntityRelationshipName": "document",
+      "relationshipName": "auditLogs",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "appUser",
+      "otherEntityRelationshipName": "documents",
+      "relationshipName": "owner",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}
