@@ -1,0 +1,131 @@
+// Design System Color Tokens
+:root {
+  // Primary Colors (Semantic 1 - Dark Blue)
+  --color-semantic1-1000: #192d39;
+  --color-semantic1-900: #273b4b;
+  --color-semantic1-800: #354a5e;
+  --color-semantic1-700: #435870;
+  --color-semantic1-600: #516682;
+  --color-semantic1-500: #6d83a7;
+  --color-semantic1-400: #9bafc8;
+  --color-semantic1-300: #cadbe8;
+  --color-semantic1-200: #ecf5fa;
+  --color-semantic1-100: #f9fdff;
+
+  // Primary Colors (Blue)
+  --color-primary-1000: #00087c;
+  --color-primary-900: #050d8c;
+  --color-primary-800: #09129b;
+  --color-primary-700: #0e16ab;
+  --color-primary-600: #121bbb;
+  --color-primary-500: #141ed2;
+  --color-primary-400: #5f7eeb;
+  --color-primary-300: #a3b7fd;
+  --color-primary-200: #dae4ff;
+  --color-primary-100: #e9efff;
+
+  // Secondary Colors (Light Blue)
+  --color-semantic2-1000: #003e7c;
+  --color-semantic2-900: #004996;
+  --color-semantic2-800: #0054b0;
+  --color-semantic2-700: #005fcb;
+  --color-semantic2-600: #006ae5;
+  --color-semantic2-500: #0075ff;
+  --color-semantic2-400: #00a5ff;
+  --color-semantic2-300: #75ceff;
+  --color-semantic2-200: #bde8ff;
+  --color-semantic2-100: #def5ff;
+
+  // Secondary Colors (Purple)
+  --color-secondary-1000: #393999;
+  --color-secondary-900: #3939b5;
+  --color-secondary-800: #4641c4;
+  --color-secondary-700: #5348d3;
+  --color-secondary-600: #6150e1;
+  --color-secondary-500: #7b5fff;
+  --color-secondary-400: #9781ff;
+  --color-secondary-300: #bbadff;
+  --color-secondary-200: #dbd3ff;
+  --color-secondary-100: #f2ebff;
+
+  // Status Colors
+  --color-success-500: #00ad68;
+  --color-success-400: #3dd196;
+  --color-success-300: #85f1c6;
+  --color-success-200: #cdfce9;
+  --color-success-100: #e6f6ec;
+
+  --color-alert-500: #fa8a00;
+  --color-alert-400: #f9a500;
+  --color-alert-300: #fdc64e;
+  --color-alert-200: #fbde97;
+  --color-alert-100: #fff4d0;
+
+  --color-error-500: #f00000;
+  --color-error-400: #f34343;
+  --color-error-300: #fb7070;
+  --color-error-200: #ffb1b1;
+  --color-error-100: #ffe3e3;
+
+  // Neutral Colors
+  --color-neutral-1000: #000000;
+  --color-neutral-900: #2e2e2e;
+  --color-neutral-800: #4d4d4d;
+  --color-neutral-700: #646464;
+  --color-neutral-600: #808080;
+  --color-neutral-500: #9b9b9b;
+  --color-neutral-400: #cccccc;
+  --color-neutral-300: #d8d8d8;
+  --color-neutral-200: #f3f3f3;
+  --color-neutral-100: #ffffff;
+
+  // Gradients
+  --gradient-additional1: linear-gradient(
+    -15deg,
+    rgba(229, 209, 255, 1) 0%,
+    rgba(221, 231, 255, 1) 6%,
+    rgba(245, 255, 253, 1) 57%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  --gradient-additional2-500: linear-gradient(90deg, #141ed2 0%, #0075ff 100%);
+  --gradient-additional3: linear-gradient(235deg, rgba(189, 213, 228, 0.7) 0%, rgba(214, 234, 240, 0) 100%);
+  --gradient-additional4: linear-gradient(180deg, #141ed2 0%, #0075ff 100%);
+
+  // Font Family
+  --font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  // Display Typography
+  --typography-display-xl-bold: 700 72px/88px var(--font-family-primary);
+  --typography-display-l-bold: 700 60px/72px var(--font-family-primary);
+  --typography-display-m-bold: 700 48px/56px var(--font-family-primary);
+  --typography-display-s-bold: 700 36px/44px var(--font-family-primary);
+
+  // Heading Typography
+  --typography-heading-xl-bold: 700 30px/38px var(--font-family-primary);
+  --typography-heading-xl-semibold: 600 30px/38px var(--font-family-primary);
+  --typography-heading-l-bold: 700 24px/32px var(--font-family-primary);
+  --typography-heading-l-semibold: 600 24px/32px var(--font-family-primary);
+  --typography-heading-m-bold: 700 20px/28px var(--font-family-primary);
+  --typography-heading-m-semibold: 600 20px/28px var(--font-family-primary);
+  --typography-heading-s-bold: 700 18px/24px var(--font-family-primary);
+  --typography-heading-s-semibold: 600 18px/24px var(--font-family-primary);
+  --typography-heading-xs-semibold: 600 16px/20px var(--font-family-primary);
+
+  // Body Typography
+  --typography-body-xl-regular: 400 20px/30px var(--font-family-primary);
+  --typography-body-l-regular: 400 18px/28px var(--font-family-primary);
+  --typography-body-m-regular: 400 16px/24px var(--font-family-primary);
+  --typography-body-m-medium: 500 16px/24px var(--font-family-primary);
+  --typography-body-s-regular: 400 14px/20px var(--font-family-primary);
+  --typography-body-s-medium: 500 14px/20px var(--font-family-primary);
+  --typography-body-xs-regular: 400 12px/16px var(--font-family-primary);
+
+  // Caption Typography
+  --typography-caption-l-regular: 400 14px/20px var(--font-family-primary);
+  --typography-caption-m-regular: 400 12px/16px var(--font-family-primary);
+  --typography-caption-s-regular: 400 11px/16px var(--font-family-primary);
+
+  // Overline Typography
+  --typography-overline-m-semibold: 600 12px/16px var(--font-family-primary);
+  --typography-overline-s-semibold: 600 11px/16px var(--font-family-primary);
+}

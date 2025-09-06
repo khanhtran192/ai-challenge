@@ -1,0 +1,108 @@
+// Login Component Styles using Design System V2 tokens
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 16px;
+  background: var(--gradient-additional1);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 480px;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--color-neutral-300);
+  background-color: var(--color-neutral-100);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 24px;
+
+  .login-title {
+    font: var(--typography-heading-xl-bold);
+    color: var(--color-neutral-1000);
+    margin: 0;
+  }
+}
+
+.login-content {
+  .login-error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    background-color: var(--color-error-100);
+    border: 1px solid var(--color-error-300);
+    border-radius: 8px;
+    color: var(--color-error-500);
+    font: var(--typography-body-s-medium);
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .login-field {
+      width: 100%;
+    }
+
+    .login-checkbox {
+      margin: 8px 0;
+    }
+
+    .login-button {
+      margin-top: 16px;
+      height: 48px;
+      border-radius: 8px;
+      font: var(--typography-body-m-medium);
+      text-transform: none;
+    }
+  }
+}
+
+.login-actions {
+  padding-top: 16px;
+  border-top: 1px solid var(--color-neutral-300);
+  margin-top: 24px;
+
+  .login-links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+
+    .forgot-password-link {
+      font: var(--typography-body-s-medium);
+      color: var(--color-primary-500);
+      text-decoration: none;
+      text-transform: none;
+    }
+
+    .register-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+
+      .register-text {
+        font: var(--typography-body-s-regular);
+        color: var(--color-neutral-700);
+      }
+
+      .register-link {
+        font: var(--typography-body-s-medium);
+        color: var(--color-secondary-500);
+        text-decoration: none;
+        text-transform: none;
+      }
+    }
+  }
+}

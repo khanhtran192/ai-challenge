@@ -1,6 +1,12 @@
 import { AfterViewInit, Component, ElementRef, OnInit, inject, signal, viewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
 
 import SharedModule from 'app/shared/shared.module';
 import { LoginService } from 'app/login/login.service';
@@ -8,8 +14,20 @@ import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
   selector: 'jhi-login',
-  imports: [SharedModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatIconModule,
+  ],
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
 export default class LoginComponent implements OnInit, AfterViewInit {
   username = viewChild.required<ElementRef>('username');
